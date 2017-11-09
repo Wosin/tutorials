@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
@@ -29,8 +30,8 @@ public class StackUnitTest {
         Stack<Integer> intStack = new Stack();
         List<Integer> inputIntList = Arrays.asList(1, 2, 3, 4, 5, 6, 7,9,10);
         intStack.addAll(inputIntList);
-        int[] intArray = intStack.stream().mapToInt(element -> (int)element).filter(element -> element <= 3).toArray();
-        assertEquals(3, intArray.length);
+        List<Integer> outputIntList = intStack.stream().filter(element -> element <= 3).collect(Collectors.toList());
+        assertEquals(3, outputIntList.size());
     }
 
     @Test
