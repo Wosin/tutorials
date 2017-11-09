@@ -1,32 +1,41 @@
 package com.baeldung.stack;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Stack;
 
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.*;
 public class StackUnitTest {
 
     @Test
     public void whenStackIsCreated_thenItHasSize0() {
-        Stack intStack = new Stack();
+        Stack<Integer> intStack = new Stack();
         assertEquals(0, intStack.size());
     }
 
     @Test
-    public void givenEmptyStack_whenElementIsPushed_thenStackSizeisIncreased() {
-        Stack intStack = new Stack();
+    public void givenEmptyStack_whenElementIsPushed_thenStackSizeIsIncreased() {
+        Stack<Integer> intStack = new Stack();
         intStack.push(1);
         assertEquals(1, intStack.size());
     }
 
     @Test
+    public void whenStackIsFiltered_allElementsNotSatisfyingFilterConditionAreDiscarded() {
+        Stack<Integer> intStack = new Stack();
+        List<Integer> inputIntList = Arrays.asList(1, 2, 3, 4, 5, 6, 7,9,10);
+        intStack.addAll(inputIntList);
+        int[] intArray = intStack.stream().mapToInt(element -> (int)element).filter(element -> element <= 3).toArray();
+        assertEquals(3, intArray.length);
+    }
+
+    @Test
     public void givenEmptyStack_whenMultipleElementsArePushed_thenStackSizeisIncreased() {
-        Stack intStack = new Stack();
+        Stack<Integer> intStack = new Stack();
         List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
         boolean result = intStack.addAll(intList);
         assertTrue(result);
